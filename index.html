@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>오늘의 운세</title>
+  <style>
+    body {
+      font-family: "맑은 고딕";
+      text-align: center;
+      margin-top: 80px;
+    }
+    button {
+      font-size: 16px;
+      padding: 10px 20px;
+    }
+    #result {
+      margin-top: 30px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🍀 오늘의 운세 🍀</h1>
+
+  <button id="fortuneBtn" onclick="showFortune()">운세 보기</button>
+
+  <div id="result">오늘의 운세를 확인해 보세요!</div>
+
+  <script>
+    const fortunes = [
+      "오늘은 좋은 일이 생길 거예요!",
+      "노력한 만큼 결과가 따라오는 날입니다.",
+      "친구와의 대화에서 즐거움이 있어요.",
+      "차분히 행동하면 좋은 선택을 할 수 있어요.",
+      "새로운 도전을 해보기 좋은 날입니다."
+    ];
+
+    const today = new Date().toDateString();
+
+    function showFortune() {
+      const savedDate = localStorage.getItem("fortuneDate");
+
+      if (savedDate === today) {
+        document.getElementById("result").innerText =
+          "오늘의 운세는 이미 확인했어요 😊 내일 다시 와 주세요!";
+        document.getElementById("fortuneBtn").disabled = true;
+        return;
+      }
+
+      const randomIndex = Math.floor(Math.random() * fortunes.length);
+      document.getElementById("result").innerText = fortunes[randomIndex];
+
+      localStorage.setItem("fortuneDate", today);
+      document.getElementById("fortuneBtn").disabled = true;
+    }
+
+    // 페이지를 다시 열었을 때도 체크
+    if (localStorage.getItem("fortuneDate") === today) {
+      document.getElementById("result").innerText =
+        "오늘의 운세는 이미 확인했어요 😊";
+      document.getElementById("fortuneBtn").disabled = true;
+    }
+  </script>
+
+</body>
+</html>
